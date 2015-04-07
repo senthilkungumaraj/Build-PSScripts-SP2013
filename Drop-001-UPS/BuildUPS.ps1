@@ -503,9 +503,33 @@ function BuildMMS()
     }
     else
     {
-        Write-Host "          A Service Application Proxy with the same name ($mmServiceAppProxyName) already exists" -ForegroundColor Yellow
+        Write-Host "          A Service Application Proxy with the same name ($mmsServiceAppProxyName) already exists" -ForegroundColor Yellow
         throw (New-Object ApplicationException)
     }
+
+    
+
+    $metadataserviceapplicationproxy = Get-SPMetadataServiceApplicationProxy $mmsServiceAppProxyName -ErrorAction SilentlyContinue;
+
+    if($metadataserviceapplicationproxy)
+    {
+        Write-Host "Applying addition settings";
+        $metadataserviceapplicationproxy.Properties["IsDefaultKeywordTaxonomy"] = $true;
+        $metadataserviceapplicationproxy.Update();
+    }
+
+    $MetadataServiceInstance = (Get-SPServiceInstance |?{$_.TypeName -eq "Managed Metadata Web Service"}) 
+
+    if($MetadataserviceInstance.Status -eq "Disabled")
+    {  
+
+        $MetadataserviceInstance | Start-SPServiceInstance  
+
+        if (-not $?) { throw "Failed to start Metadata service instance" } 
+
+    } 
+    invoke-command -scriptblock {iisreset};
+
 }
 #**************************************************************************************
 
