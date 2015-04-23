@@ -22,11 +22,11 @@ if ($spCmdlets -eq $null) {
 # Variables and Constants
 #**************************************************************************************
 $displayName = "AD Sync Connection";
-$forestName = "corp.contoso.com";
-$includeOUs = "DC=corp,DC=contoso,DC=com";
-$domain = "corp";
-$userName = "spadmin";
-$password = "password";
+$forestName = "litwareinc.com";
+$includeOUs = "DC=LitwareInc,DC=com";
+$domain = "Litwareinc";
+$userName = "administrator";
+$password = "pass@word1";
 
 
 $useSsl = $false;

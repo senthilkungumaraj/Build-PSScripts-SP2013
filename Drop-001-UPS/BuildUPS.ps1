@@ -21,9 +21,9 @@ $logFile = $myinvocation.mycommand.path.Replace($MyInvocation.MyCommand.name,"")
 $settingsFile = $myinvocation.mycommand.path.Replace($MyInvocation.MyCommand.name,"") + "Configuration.xml"
 
 # Change the following three lines with your environment variables
-$sqlServerName =  "SPDEVSQL";
-$newAcct = "corp\spadmin";
-$newPass = "password";
+$sqlServerName =  "2013-SHAREPOINT\SPSDB";
+$newAcct = "Litwareinc\administrator";
+$newPass = "pass@word1";
 
 
 # Store the values from the CSV into variables - Do not change

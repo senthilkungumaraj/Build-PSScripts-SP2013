@@ -1105,7 +1105,7 @@ function ConfigureMySiteSettings([System.Xml.XmlElement]$config)
     {  
         $mySiteWebApp.SelfServiceSiteCreationEnabled = $true;
 
-        $siteUrlToSet = "/my"; 
+        $siteUrlToSet = "/my/"; 
         $mySiteWebApp.SelfServiceCreationParentSiteUrl = $siteUrlToSet; 
         $mySiteWebApp.ShowStartASiteMenuItem = $true;
         $mySiteWebApp.SelfServiceCreateIndividualSite = $true;
@@ -1122,9 +1122,10 @@ function ConfigureMySiteSettings([System.Xml.XmlElement]$config)
 
         if($mySite)
         {
-            $ctx = Get-SPServiceContext $mySite;
+            $ctx = Get-SPServiceContext -Site $mySite;
             $upm = new-object Microsoft.Office.Server.UserProfiles.UserProfileManager($ctx);
-            $upm.MySiteHostUrl = $mySiteUrl.siteUrl;
+            $mySiteUrlToSet = $mySiteUrl.siteUrl + "/";
+            $upm.MySiteHostUrl = $mySiteUrlToSet;
             $upm.PersonalSiteInclusion = "my/personal";
 
         }
